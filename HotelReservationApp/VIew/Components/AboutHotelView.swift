@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AboutHotelView: View {
     
-    @StateObject var viewModel: MainViewViewModel
+    @EnvironmentObject var viewModel: MainViewViewModel
     @State private var isActive = false // This is used to control navigation programmatically
 
     
@@ -59,6 +59,7 @@ struct AboutHotelView: View {
 struct AboutHotelView_Previews: PreviewProvider {
     static var previews: some View {
         MainVIew()
+             .environmentObject(MainViewViewModel())
     }
 }
 

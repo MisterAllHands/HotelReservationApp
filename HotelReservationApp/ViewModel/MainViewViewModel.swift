@@ -14,7 +14,6 @@ class MainViewViewModel: ObservableObject {
     @Published var imageUrls: [String] = []
     
     private var cancellables: Set<AnyCancellable> = []
-
     
     init() {
         fetchData()

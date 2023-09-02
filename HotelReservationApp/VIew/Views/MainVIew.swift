@@ -78,18 +78,6 @@
 //        return 22 * progress
 //    }
 //}
-//
-//struct MainVIew_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MainVIew(images: [])
-//    }
-//}
-//
-//  MainVIew.swift
-//  HotelReservationApp
-//
-//  Created by TTGMOTSF on 31/08/2023.
-//
 
 
 import SwiftUI
@@ -97,7 +85,7 @@ import SwiftUI
 
 struct MainVIew: View {
     
-    @ObservedObject private var viewModel = MainViewViewModel()
+    @EnvironmentObject var viewModel: MainViewViewModel
     
     @State var offset: CGFloat = 0
     
@@ -131,9 +119,9 @@ struct MainVIew: View {
                     .offset(y: -offset)
                     
                     VStack {
-                        RatingCardVIew(viewModel: viewModel)
-                        HotelDetailCard(viewModel: viewModel)
-                        AboutHotelView(viewModel: viewModel)
+                        RatingCardVIew(viewModel: _viewModel)
+                        HotelDetailCard(viewModel: _viewModel)
+                        AboutHotelView(viewModel: _viewModel)
                         
                     }
                 }
@@ -144,7 +132,7 @@ struct MainVIew: View {
                 }
                 .navigationBarTitle("Отель")
                 .navigationBarTitleDisplayMode(.inline)
-                onAppear{
+                .onAppear{
                     viewModel.fetchData()
                 }
             }
@@ -164,5 +152,6 @@ struct OffsetPreferenceKey: PreferenceKey {
 struct MainVIew_Previews: PreviewProvider {
     static var previews: some View {
         MainVIew()
+            .environmentObject(MainViewViewModel())
     }
 }

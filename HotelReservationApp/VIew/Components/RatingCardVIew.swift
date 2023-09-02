@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RatingCardVIew: View {
     
-    @StateObject var viewModel: MainViewViewModel
+    @EnvironmentObject var viewModel: MainViewViewModel
 
     var body: some View {
             RoundedRectangle(cornerRadius: 10)
@@ -37,5 +37,6 @@ struct RatingCardVIew: View {
 struct RatingCardVIew_Previews: PreviewProvider {
     static var previews: some View {
        MainVIew()
+            .environmentObject(MainViewViewModel())
     }
 }
