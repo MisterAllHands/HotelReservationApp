@@ -11,14 +11,16 @@ import Combine
 final class HotelDetailViewViewModel: ObservableObject {
     
     @Published var hotelRoom: HotelRoomResponse?
+    private var hasFetchedData: Bool = false
     
     private var cancellables: Set<AnyCancellable> = []
     
-    init() {
-        loadHotelRoomData()
+    func fetchDataIfNeeded() {
+            guard !hasFetchedData else { return } // Only fetch data if it hasn't been fetched
+            loadHotelRoomData()
     }
     
-    private func loadHotelRoomData() {
+    public func loadHotelRoomData() {
         guard let url = URL(string: "https://run.mocky.io/v3/f9a38183-6f95-43aa-853a-9c83cbb05ecd") else {
             return
         }
@@ -26,6 +28,7 @@ final class HotelDetailViewViewModel: ObservableObject {
         URLSession.shared.dataTaskPublisher(for: url)
             .map(\.data)
             .decode(type: HotelRoomResponse.self, decoder: JSONDecoder())
+            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case .finished:

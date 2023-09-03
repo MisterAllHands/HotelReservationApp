@@ -12,13 +12,12 @@ struct AlignmentGridView: View {
     let labels: [String]
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            let chunkedLabels = labels.chunked(into: 2) // Split labels into pairs
-
+            let chunkedLabels = labels.chunked(into: 2)  // Split the labels into pairs for alignment
             ForEach(chunkedLabels, id: \.self) { pair in
                 HStack(spacing: 8) {
                     ForEach(pair, id: \.self) { label in
                         Text(label)
-                            .font(.caption)
+                            .font(.footnote)
                             .bold()
                             .foregroundColor(.secondary)
                             .padding(.vertical, 8)

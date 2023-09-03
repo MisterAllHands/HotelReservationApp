@@ -10,7 +10,8 @@ import SwiftUI
 struct HotelDetailCard: View {
     
     @EnvironmentObject var viewModel: MainViewViewModel
-
+    
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 10){
             if let hotelRoom = viewModel.hotel {
@@ -40,6 +41,5 @@ struct HotelDetailCard: View {
 struct HotelDetailCard_Previews: PreviewProvider {
     static var previews: some View {
         MainVIew()
-             .environmentObject(MainViewViewModel())
     }
 }

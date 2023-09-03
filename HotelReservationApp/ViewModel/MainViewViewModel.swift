@@ -12,15 +12,17 @@ class MainViewViewModel: ObservableObject {
     
     @Published var hotel: Hotel?
     @Published var imageUrls: [String] = []
-    
+    private var hasFetchedData = false // property to track data fetch status
+
     private var cancellables: Set<AnyCancellable> = []
     
-    init() {
-        fetchData()
-    }
+    func fetchDataIfNeeded() {
+            guard !hasFetchedData else { return } // Only fetch data if it hasn't been fetched
+            fetchData()
+        }
     
     func fetchData() {
-        // Replace this URL with your API endpoint
+        //API endpoint
         guard let url = URL(string: "https://run.mocky.io/v3/35e0d18e-2521-4f1b-a575-f0fe366f66e3") else {
             return
         }

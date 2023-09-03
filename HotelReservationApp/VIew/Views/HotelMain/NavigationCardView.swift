@@ -6,34 +6,9 @@
 //
 
 import SwiftUI
-//
-//struct NavigationCardView: View {
-//
-//    var image: String
-//    var mainText: String
-//    var secondaryText: String
-//
-//    var body: some View {
-//        HStack {
-//            Image(systemName: image)
-//                .font(.title)
-//            VStack(alignment: .leading, spacing: 5) {
-//                Text(mainText)
-//                    .font(.system(size: 20, weight: .medium))
-//                Text(secondaryText)
-//                    .font(.subheadline)
-//                    .foregroundColor(.secondary)
-//            }
-//            .padding()
-//        }
-//    }
-//}
-//
-//struct NavigationCardView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MainVIew()
-//    }
-//}
+
+
+
 struct NavigationCardView: View {
     let imageName: String
     let mainText: String

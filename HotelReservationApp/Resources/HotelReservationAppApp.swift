@@ -11,6 +11,7 @@ import SwiftUI
 struct HotelReservationAppApp: App {
     
     @StateObject var viewModel = MainViewViewModel()
+    
     var body: some Scene {
         WindowGroup {
             MainVIew()
