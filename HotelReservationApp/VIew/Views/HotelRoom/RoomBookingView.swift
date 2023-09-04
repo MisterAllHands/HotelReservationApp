@@ -7,9 +7,11 @@
 
 import SwiftUI
 
+
+
 struct RoomBookingView: View {
     
-    @ObservedObject var viewModel = RoomBookingViewViewModel()
+    @EnvironmentObject var viewModel: RoomBookingViewViewModel
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
@@ -18,12 +20,13 @@ struct RoomBookingView: View {
                 VStack(alignment: .leading, spacing: 10) {
                     Spacer()
                     
+                    RoomRatingView(viewModel: _viewModel)
+                    
                     if let booked = viewModel.roomBooking {
-                        ratingView(viewModel: viewModel)
                         Text(booked.hotelName)
                             .font(.system(size: 25, weight: .semibold))
                         Button {
-                            //Action
+                            // Action
                         } label: {
                             Text(booked.hotelAdress)
                                 .font(.subheadline)
@@ -33,6 +36,10 @@ struct RoomBookingView: View {
                         }
                         Spacer()
                         
+                        touristTableView(viewModel: viewModel)
+                        
+                       
+
                     }
                 }
                 .padding(.leading)
@@ -50,39 +57,33 @@ struct RoomBookingView: View {
                             .font(.system(size: 18))
                             .bold() // Customize the color if desired
                     }
-            )
+                )
             }
         }
     }
 }
 
 @ViewBuilder
-private func ratingView(viewModel: RoomBookingViewViewModel)-> some View {
+private func touristTableView(viewModel: RoomBookingViewViewModel) -> some View {
     if let booked = viewModel.roomBooking {
-        RoundedRectangle(cornerRadius: 10)
-            .fill(Color.orange.opacity(0.2))
-            .frame(width: UIScreen.main.bounds.width / 1.8, height: 35)
-            .overlay(
-                HStack(spacing: 5, content: {
-                    Image(systemName: "star.fill")
-                        .font(.system(size: 20))
-                    
-                    Text(String(booked.horating))
-                        .font(.system(size: 20, weight: .semibold))
-                    Text(booked.ratingName)
-                        .font(.system(size: 20, weight: .semibold))
-                    
-                })
-                .foregroundColor(.orange.opacity(0.8))
-                ,alignment: .leading
-            )
+        VStack(alignment: .leading, spacing: 10) {
+            DetailRow(label: "Вылет из:", value: booked.departure)
+            DetailRow(label: "Страна, город:", value: booked.arrivalCountry)
+            DetailRow(label: "Даты:", value: "\(booked.tourDateStart) - \(booked.tourDateStop)")
+            DetailRow(label: "Кол-во ночей:", value: "\(booked.numberOfNights) ночей")
+            DetailRow(label: "Отель:", value: booked.hotelName)
+            DetailRow(label: "Номер:", value: booked.room)
+            DetailRow(label: "Питание:", value: booked.nutrition)
+        }
+        .padding(.leading)
+        .padding(.trailing)
     }
 }
-
 
 
 struct RoomBookingView_Previews: PreviewProvider {
     static var previews: some View {
         RoomBookingView()
+            .environmentObject(RoomBookingViewViewModel())
     }
 }
