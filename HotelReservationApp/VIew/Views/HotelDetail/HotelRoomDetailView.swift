@@ -47,7 +47,7 @@ struct RoomDetailView: View {
             }
             .padding(.top)
 
-            NavigationLink(destination: RoomBookingView()) {
+            NavigationLink(destination: RoomBookingView().navigationBarBackButtonHidden(true)) {
                 ZStack {
                     RoundedRectangle(cornerRadius: 10)
                         .fill(Color.blue)

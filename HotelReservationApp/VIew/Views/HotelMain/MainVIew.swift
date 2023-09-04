@@ -64,9 +64,11 @@ struct MainVIew: View {
                 ScrollView {
                     CustomTabView(items: viewModel.imageUrls.map { .image($0) }, currentIndex: $currentIndex)
                     VStack {
-                            RatingCardVIew(viewModel: _viewModel)
+                        if let hotel = viewModel.hotel{
+                            RatingCardVIew(rating: hotel.rating, ratingName: hotel.ratingName)
                             HotelDetailCard(viewModel: _viewModel)
                             AboutHotelView(viewModel: _viewModel)
+                        }
                     }
                 }
                 .navigationBarTitle("Отель")
