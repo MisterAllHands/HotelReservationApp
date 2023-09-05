@@ -11,39 +11,46 @@ import SwiftUI
 
 struct RoomBookingView: View {
     
-    @EnvironmentObject var viewModel: RoomBookingViewViewModel
+    @ObservedObject var viewModel = RoomBookingViewViewModel()
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         NavigationView {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 10) {
-                    Spacer()
-                    
-                    RoomRatingView(viewModel: _viewModel)
-                    
-                    if let booked = viewModel.roomBooking {
-                        Text(booked.hotelName)
-                            .font(.system(size: 25, weight: .semibold))
-                        Button {
-                            // Action
-                        } label: {
-                            Text(booked.hotelAdress)
-                                .font(.subheadline)
-                                .bold()
-                                .foregroundColor(Color(uiColor: .systemBlue))
-                                .padding(.bottom, 20)
-                        }
+            ZStack {
+                Color.gray.opacity(0.2)
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 10) {
                         Spacer()
-                        
-                        touristTableView(viewModel: viewModel)
-                        
-                       
-
+                        if let booked = viewModel.roomBooking {
+                            RoomRatingView(rating: booked.horating, ratingName: booked.ratingName)
+                            Text(booked.hotelName)
+                                .font(.system(size: 25, weight: .semibold))
+                            Button {
+                                // Action
+                            } label: {
+                                Text(booked.hotelAdress)
+                                    .font(.subheadline)
+                                    .bold()
+                                    .foregroundColor(Color(uiColor: .systemBlue))
+                                    .padding(.bottom, 20)
+                            }
+                        }
                     }
+                    .padding(.leading)
+                    .background(
+                        RoundedRectangle(cornerRadius: 30)
+                            .fill(Color.white)
+                            .frame(maxWidth: .infinity)
+                            .padding(.top)
+                    )
+                    
+                    Spacer()
+                        .frame(height: 25)
+                    
+                    touristTableView(viewModel: viewModel)
+                    
                 }
-                .padding(.leading)
-                .onAppear{
+                .onAppear {
                     viewModel.fetchDataIfNeeded()
                 }
                 .navigationTitle("Бронирование")
@@ -55,7 +62,7 @@ struct RoomBookingView: View {
                         Image(systemName: "chevron.left")
                             .foregroundColor(.black)
                             .font(.system(size: 18))
-                            .bold() // Customize the color if desired
+                            .bold()
                     }
                 )
             }
@@ -77,13 +84,18 @@ private func touristTableView(viewModel: RoomBookingViewViewModel) -> some View 
         }
         .padding(.leading)
         .padding(.trailing)
+        .background(
+            RoundedRectangle(cornerRadius: 30)
+                .fill(Color.white)
+                .frame(maxWidth: .infinity, minHeight: 300)
+                .padding(.top)
+        )
+
     }
 }
-
 
 struct RoomBookingView_Previews: PreviewProvider {
     static var previews: some View {
         RoomBookingView()
-            .environmentObject(RoomBookingViewViewModel())
     }
 }
