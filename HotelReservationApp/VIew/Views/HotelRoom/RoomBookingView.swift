@@ -13,6 +13,8 @@ struct RoomBookingView: View {
     
     @ObservedObject var viewModel = RoomBookingViewViewModel()
     @Environment(\.presentationMode) var presentationMode
+    @State private var phoneNumber = ""
+
     
     var body: some View {
         NavigationView {
@@ -44,10 +46,21 @@ struct RoomBookingView: View {
                             .padding(.top)
                     )
                     
+                    //MARK: Tourist Table Info
+
                     Spacer()
                         .frame(height: 25)
                     
                     touristTableView(viewModel: viewModel)
+                    
+                    //MARK: Number & Email Field
+                    
+                    Spacer()
+                        .frame(height: 50)
+                        NumberPhoneMaskVIew()
+                    
+                    //MARK: Tourist Section
+                    
                     
                 }
                 .onAppear {
@@ -99,3 +112,5 @@ struct RoomBookingView_Previews: PreviewProvider {
         RoomBookingView()
     }
 }
+
+
