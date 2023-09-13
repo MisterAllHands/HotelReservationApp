@@ -14,12 +14,16 @@ struct RoomBookingView: View {
     @ObservedObject var viewModel = RoomBookingViewViewModel()
     @Environment(\.presentationMode) var presentationMode
     @State private var phoneNumber = ""
+    @State private var touristsCount = 2 // Initial count
+    @State private var touristLabels = ["Первый турист", "Второй турист"]
+
 
     
     var body: some View {
         NavigationView {
             ZStack {
                 Color.gray.opacity(0.2)
+                    .ignoresSafeArea()
                 ScrollView {
                     VStack(alignment: .leading, spacing: 10) {
                         Spacer()
@@ -61,6 +65,38 @@ struct RoomBookingView: View {
                     
                     //MARK: Tourist Section
                     
+                    ForEach(0..<touristsCount, id: \.self) { index in
+                        Divider()
+                        TouristFieldView(label: touristLabels[index])
+                    }
+                    Divider()
+                    Button(action: {
+                        let newIndex = touristsCount + 1
+                        touristsCount = newIndex
+                        touristLabels.append(numberToRussianOrdinal(newIndex))
+                    }) {
+                        HStack{
+                            Text("Добавить туриста")
+                                .foregroundColor(.black)
+                                .font(.system(size: 25, weight: .bold))
+                            
+                            Spacer()
+                            
+                            Image(systemName: "plus")
+                                .frame(width: 40, height: 40)
+                                .font(.headline)
+                                .bold()
+                                .foregroundColor(.white)
+                                .background(.blue)
+                                .cornerRadius(7)
+                        }
+                        .padding()
+                    }
+                    .padding(.top, 10)
+                    
+                    if let room = viewModel.roomBooking {
+                        TripExpensesView(tourPrice: room.tourPrice , fuelPrice: room.fuelCharge, serviceCharge: room.serviceCharge)
+                    }
                     
                 }
                 .onAppear {

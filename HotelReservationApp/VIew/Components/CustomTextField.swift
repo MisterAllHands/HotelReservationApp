@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CustomTextField: ViewModifier {
+    
     @Binding var text: String
     let placeholder: String
     

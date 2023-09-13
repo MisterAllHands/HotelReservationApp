@@ -16,12 +16,13 @@ struct TouristFieldView: View {
     @State private var passportNumber = ""
     @State private var citizenship = ""
     @State private var passportExpirationDate = ""
+    var label: String
     
     var body: some View {
         VStack(spacing: 20) {
             Collapsibble {
-                Text("Первый турист")
-                    .font(.system(size: 30, weight: .bold))
+                Text(label)
+                    .font(.system(size: 25, weight: .bold))
             } content: {
                 VStack {
                     TextField("Имя", text: $name)
@@ -48,6 +49,7 @@ struct TouristFieldView: View {
 }
 
 struct Collapsibble<Content: View>: View {
+    
     @State var lable: () -> Text
     @State var content: () -> Content
     
@@ -55,12 +57,16 @@ struct Collapsibble<Content: View>: View {
     
     var body: some View {
         VStack {
-            Button(action: {self.collapsed.toggle() },label: {
+            Button(
+                action: {
+                    self.collapsed.toggle()
+                },
+                   label: {
                 HStack {
                     self.lable()
                     Spacer()
                     Image(systemName: self.collapsed ? "chevron.down" : "chevron.up")
-                        .font(.system(size: 27, weight: .semibold))
+                        .font(.system(size: 25, weight: .semibold))
                         .foregroundColor(.blue)
                         .padding(.trailing, 10)
                 }
@@ -81,6 +87,6 @@ struct Collapsibble<Content: View>: View {
 
 struct TouristFieldView_Previews: PreviewProvider {
     static var previews: some View {
-        TouristFieldView()
+        TouristFieldView(label: "")
     }
 }

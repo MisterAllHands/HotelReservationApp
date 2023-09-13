@@ -1,55 +1,10 @@
-////
-////  MainVIew.swift
-////  HotelReservationApp
-////
-////  Created by TTGMOTSF on 31/08/2023.
-////
 //
-//import SwiftUI
+//  MainVIew.swift
+//  HotelReservationApp
 //
-//struct MainVIew: View {
+//  Created by TTGMOTSF on 31/08/2023.
 //
-//    @State var offset: CGFloat = 0
-//    var images: [String] = ["main","main","main"]
-//
-//    var body: some View {
-//        NavigationView {
-//            ScrollViewReader { proxy in
-//                ScrollView(.init()){
-//                    TabView(selection: $offset){
-//                        ForEach(0..<images.count, id: \.self) { index in
-//                                Image(images[index])
-//                                    .resizable()
-//                                    .aspectRatio(contentMode: .fit)
-//                                    .tag(index)
-//                                    .overlay (
-//                                        GeometryReader{proxy -> Image in
-//                                            let minX = proxy.frame(in: .global).minX
-//                                            DispatchQueue.main.async {
-//                                                withAnimation(.default){
-//                                                    self.offset = -minX
-//                                                }
-//                                            }
-//                                            return Image("")
-//                                        }
-//                                        .frame(width: 0, height: 0)
-//                                        ,alignment: .leading
-//                                    )
-//                        }
-//                    }
-//                    .tabViewStyle(.page(indexDisplayMode: .never))
-//
-//                    RatingCardVIew()
-//                    HotelDetailCard()
-//                    AboutHotelView()
-//                }
-//                .edgesIgnoringSafeArea(.bottom)
-//                .navigationTitle("Отель")
-//            .navigationBarTitleDisplayMode(.inline)
-//            }
-//        }
 
-import SwiftUI
 
 
 import SwiftUI
